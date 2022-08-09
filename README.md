@@ -2,6 +2,7 @@
 
 A shell program is an application that allows interacting with the computer. In a shell the user can run programs and also redirect the input to come from a file and output to come from a file. Shells also provide programming constructions such as if, for, while, functions, variables etc. Additionally, shell programs offer features such as line editing, history, file completion, wildcards, environment variable expansion, and programing constructions. Here is a list of the most popular shell programs in UNIX:
 
+<<<<<<< HEAD
 sh - Shell Program: The original shell program in UNIX.
 csh - C Shell: An improved version of sh.
 tcsh - A version of Csh that has line editing.
@@ -271,3 +272,8 @@ $
 		**CONTRIBUTORS**
 		Emmanuel Chukwujekwu [github] (https:/github.com/EmmanuelPriest)
 		Anthony Ekim [github] (https://github.com/Tonyekim)
+=======
+**CONTRIBUTORS**
+Emmanuel Chukwujekwu and 
+Anthony Ekim
+>>>>>>> 8ddf18598e3076b8cb98c1d5aefe4baf78dc099b
