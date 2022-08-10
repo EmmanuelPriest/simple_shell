@@ -6,11 +6,11 @@ char *error_2_exit(char **args);
 char *error_2_cd(char **args);
 char *error_2_syntax(char **args);
 /**
- * error_env - Creates an error message for shellby_env errors.
- * @args: An array of arguments passed to the command.
- *
- * Return: The error string.
- */
+* error_env - Creates an error message for shellby_env errors.
+* @args: An array of arguments passed to the command.
+*
+* Return: The error string.
+*/
 char *error_env(char **args)
 {
 	char *error, *hist_str;
@@ -41,11 +41,11 @@ char *error_env(char **args)
 }
 
 /**
- * error_1 - Creates an error message for shellby_alias errors.
- * @args: An array of arguments passed to the command.
- *
- * Return: The error string.
- */
+* error_1 - Creates an error message for shellby_alias errors.
+* @args: An array of arguments passed to the command.
+*
+* Return: The error string.
+*/
 char *error_1(char **args)
 {
 	char *error;
@@ -64,11 +64,11 @@ char *error_1(char **args)
 }
 
 /**
- * error_2_exit - Creates an error message for shellby_exit errors.
- * @args: An array of arguments passed to the command.
- *
- * Return: The error string.
- */
+* error_2_exit - Creates an error message for shellby_exit errors.
+* @args: An array of arguments passed to the command.
+*
+* Return: The error string.
+*/
 char *error_2_exit(char **args)
 {
 	char *error, *hist_str;
@@ -98,11 +98,11 @@ char *error_2_exit(char **args)
 }
 
 /**
- * error_2_cd - Creates an error message for shellby_cd errors.
- * @args: An array of arguments passed to the command.
- *
- * Return: The error string.
- */
+* error_2_cd - Creates an error message for shellby_cd errors.
+* @args: An array of arguments passed to the command.
+*
+* Return: The error string.
+*/
 char *error_2_cd(char **args)
 {
 	char *error, *hist_str;
@@ -169,4 +169,3 @@ char *error_2_syntax(char **args)
 	free(hist_str);
 	return (error);
 }
-

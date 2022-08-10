@@ -7,8 +7,8 @@ void help_exit(void);
 void help_help(void);
 
 /**
- * help_all - Displays all possible builtin shellby commands.
- */
+* help_all - Displays all possible builtin shellby commands.
+*/
 void help_all(void)
 {
 	char *msg = "Shellby\nThese shell commands are defined internally.\n";
@@ -29,8 +29,8 @@ void help_all(void)
 }
 
 /**
- * help_alias - Displays information on the shellby builtin command 'alias'.
- */
+* help_alias - Displays information on the shellby builtin command 'alias'.
+*/
 void help_alias(void)
 {
 	char *msg = "alias: alias [NAME[='VALUE'] ...]\n\tHandles aliases.\n";
@@ -51,11 +51,12 @@ void help_alias(void)
 }
 
 /**
- * help_cd - Displays information on the shellby builtin command 'cd'.
- */
+* help_cd - Displays information on the shellby builtin command 'cd'.
+*/
 void help_cd(void)
 {
-	char *msg = "cd: cd [DIRECTORY]\n\tChanges the current directory of the";
+	char *msg = "cd: cd [DIRECTORY]\n\tChanges the current directory of
+		the";
 
 	write(STDOUT_FILENO, msg, _strlen(msg));
 	msg = " process to DIRECTORY.\n\n\tIf no argument is given, the ";
@@ -71,8 +72,8 @@ void help_cd(void)
 }
 
 /**
- * help_exit - Displays information on the shellby builtin command 'exit'.
- */
+* help_exit - Displays information on the shellby builtin command 'exit'.
+*/
 void help_exit(void)
 {
 	char *msg = "exit: exit [STATUS]\n\tExits the shell.\n\n\tThe ";
@@ -87,16 +88,17 @@ void help_exit(void)
 }
 
 /**
- * help_help - Displays information on the shellby builtin command 'help'.
- */
+* help_help - Displays information on the shellby builtin command 'help'.
+*/
 void help_help(void)
 {
-	char *msg = "help: help\n\tSee all possible Shellby builtin commands.\n";
+	char *msg = "help: help\n\tSee all possible Shellby builtin
+		commands.\n";
 
 	write(STDOUT_FILENO, msg, _strlen(msg));
-	msg = "\n      help [BUILTIN NAME]\n\tSee specific information on each ";
+	msg = "\n      help [BUILTIN NAME]\n\tSee specific information on
+		each ";
 	write(STDOUT_FILENO, msg, _strlen(msg));
 	msg = "builtin command.\n";
 	write(STDOUT_FILENO, msg, _strlen(msg));
 }
-
