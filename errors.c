@@ -5,11 +5,11 @@ char *_itoa(int num);
 int create_error(char **args, int err);
 
 /**
- * num_len - Counts the digit length of a number.
- * @num: The number to measure.
- *
- * Return: The digit length.
- */
+* num_len - Counts the digit length of a number.
+* @num: The number to measure.
+*
+* Return: The digit length.
+*/
 int num_len(int num)
 {
 	unsigned int num1;
@@ -34,11 +34,11 @@ int num_len(int num)
 }
 
 /**
- * _itoa - Converts an integer to a string.
- * @num: The integer.
- *
- * Return: The converted string.
- */
+* _itoa - Converts an integer to a string.
+* @num: The integer.
+*
+* Return: The converted string.
+*/
 char *_itoa(int num)
 {
 	char *buffer;
@@ -73,12 +73,12 @@ char *_itoa(int num)
 
 
 /**
- * create_error - Writes a custom error message to stderr.
- * @args: An array of arguments.
- * @err: The error value.
- *
- * Return: The error value.
- */
+* create_error - Writes a custom error message to stderr.
+* @args: An array of arguments.
+* @err: The error value.
+*
+* Return: The error value.
+*/
 int create_error(char **args, int err)
 {
 	char *error;
@@ -113,4 +113,3 @@ int create_error(char **args, int err)
 	return (err);
 
 }
-
