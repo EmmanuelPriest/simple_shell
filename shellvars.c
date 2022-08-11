@@ -1,17 +1,17 @@
-#include "shell.h"
+#include "toem.h"
 #include "shellvars.h"
 /**
- * initsvars - initialize vars
- * @ac: arguemnts intiger
- * @av: string arguments
- * Return: int
- */
+* initsvars - initialize vars
+* @ac: arguemnts intiger
+* @av: string arguments
+* Return: int
+*/
 int initsvars(int ac, char **av)
 {
 	ShellVar **specialroot = getspecial();
 	ShellVar *special;
 	ShellVar *ptr;
-	int i = 0;
+	int n = 0;
 	char nums[2] = {0, 0};
 
 	/* 0-9, #, $, ?, dash, underscore */
@@ -26,26 +26,26 @@ int initsvars(int ac, char **av)
 	special->name = _strdup("?");
 	ptr = special + 1;
 	special->next = ptr;
-	while (av[i] != NULL)
+	while (av[n] != NULL)
 	{
 #ifdef DEBUGMODE
-		printf("av[%d]=%s\n", i, av[i]);
+		printf("av[%d]=%s\n", n, av[n]);
 #endif
-		nums[0] = i + '0';
-		ptr->val = _strdup(av[i]);
+		nums[0] = n + '0';
+		ptr->val = _strdup(av[n]);
 		ptr->name = _strdup(nums);
 		ptr->next = ptr + 1;
 		ptr = ptr->next;
-		i++;
+		n++;
 	}
-	while (i < 10)
+	while (n < 10)
 	{
-		nums[0] = i + '0';
+		nums[0] = n + '0';
 		ptr->val = _strdup("0");
 		ptr->name = _strdup(nums);
 		ptr->next = ptr + 1;
 		ptr = ptr->next;
-		i++;
+		n++;
 	}
 	ptr->name = _strdup("$");
 	ptr->val = _strdup("0");
@@ -57,11 +57,11 @@ int initsvars(int ac, char **av)
 	return (0);
 }
 /**
- * getsvar - gets shell variable
- * @name: name of shell var
- *
- * Return: original argument if not found
- */
+* getsvar - gets shell variable
+* @name: name of shell var
+*
+* Return: original argument if not found
+*/
 char *getsvar(char *name)
 {
 	ShellVar *special = *(getspecial()), *vars = *(getvars());
@@ -102,11 +102,12 @@ char *getsvar(char *name)
 	return (_strdup(ptr->val));
 }
 /**
- * setsvar - sets shell var
- * @name: name of var
- * @val: value of var
- * Return: int
- */
+* setsvar - sets shell var
+* @name: name of var
+* @val: value of var
+*
+* Return: integer
+*/
 int setsvar(char *name, char *val)
 {
 	ShellVar **vars = getvars();
@@ -175,10 +176,11 @@ int setsvar(char *name, char *val)
 	return (0);
 }
 /**
- * unsetsvar - unset shell var
- * @name: name of var to unset
- * Return: int
- */
+* unsetsvar - unset shell var
+* @name: name of var to unset
+*
+* Return: integer
+*/
 int unsetsvar(char *name)
 {
 	ShellVar *vars = *getvars();

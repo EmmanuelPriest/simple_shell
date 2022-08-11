@@ -1,21 +1,22 @@
-#include "shell.h"
+#include "toem.h"
 /**
- * _getline - gets a line from fd or std input
- * @lineptr: buffer to fill line with
- * @fd: file descriptor
- * Return: num of characters
- */
+* _getline - function that gets a line from fd or std input
+* @lineptr: buffer to fill line with
+* @fd: file descriptor
+*
+* Return: num of characters
+*/
 int _getline(char **lineptr, int fd)
 {
 	int size = 1025;
 	int old_size = 0;
-	int r = 1;
+	int x = 1;
 	int sum = 0;
 	static char buffer[1025];
 	static int begin;
 	static int end;
-	int c = 0;
-	int d;
+	int y = 0;
+	int z;
 
 	if (fd == -2)
 	{
@@ -38,16 +39,16 @@ int _getline(char **lineptr, int fd)
 	{
 		if (begin == end)
 		{
-			while (sum < 1024 && r != 0)
+			while (sum < 1024 && x != 0)
 			{
-				r = read(fd, buffer + sum, 1024 - sum);
+				x = read(fd, buffer + sum, 1024 - sum);
 				begin = 0;
-				sum += r;
+				sum += x;
 				end = sum;
-				/*printf("r : %d\n", r);*/
-				for (d = 0; r != 0 && d < end; d++)
-					if (buffer[d] == '\n')
-						r = 0;
+				/*printf("x : %d\n", x);*/
+				for (z = 0; x != 0 && z < end; z++)
+					if (buffer[z] == '\n')
+						x = 0;
 			}
 			if (sum == 0)
 			{
@@ -62,26 +63,26 @@ int _getline(char **lineptr, int fd)
 			if (begin == 1024)
 			{
 				/*free(buffer);*/
-				/*(*lineptr)[c] = EOF;*/
-				/*return (c);*/
+				/*(*lineptr)[y] = EOF;*/
+				/*return (y);*/
 				break;
 			}
 			/*printf("beginning for\n");//debug check*/
 			if (buffer[begin] == '\n')
 			{
-				(*lineptr)[c] = '\n';
+				(*lineptr)[y] = '\n';
 				begin++;
-				c++;
-				(*lineptr)[c] = '\0';
-				return (c);
+				y++;
+				(*lineptr)[y] = '\0';
+				return (y);
 			}
 			else
 			{
-				(*lineptr)[c] = buffer[begin];
+				(*lineptr)[y] = buffer[begin];
 			}
-			c++;
+			y++;
 		}
-		if (c + begin >= 1024)
+		if (y + begin >= 1024)
 		{
 			old_size = size;
 			size = size + 1024;
@@ -94,8 +95,8 @@ int _getline(char **lineptr, int fd)
 		else
 		{
 			(*lineptr)[old_size + begin] = 0;
-			return (c);
+			return (y);
 		}
-		/*printf("j: %d, i:%d, r:%d\n", j, i ,r);*/
+		/*printf("m: %d, n:%d, x:%d\n", m, n ,x);*/
 	}
 }

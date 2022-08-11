@@ -1,9 +1,11 @@
-#include "shell.h"
+#include "toem.h"
+
 /**
- * parsesetsvar - parse set shell vars, returns new buf after var setting
- * @buf: buffer
- * Return: string
- */
+* parsesetsvar - parse set shell vars, returns new buf after var setting
+* @buf: buffer
+*
+* Return: string
+*/
 char *parsesetsvar(char *buf)
 {
 	int haseq;
@@ -25,7 +27,8 @@ char *parsesetsvar(char *buf)
 				name = strtok(name, "=");
 				val = strtok(NULL, "");
 #ifdef DEBUGSVARS
-				printf("In parsesetvar: setting var %s to %s\n", name, val);
+				printf("In parsesetvar: setting var %s
+						to %s\n", name, val);
 #endif
 				setsvar(name, val);
 				if (buf == NULL)
@@ -61,10 +64,11 @@ char *parsesetsvar(char *buf)
 }
 
 /**
- * subsvars - substitutes in svars for $names
- * @buf: buffer string that was input
- * Return: processed buffer string
- */
+* subsvars - function that substitutes in svars for $names
+* @buf: buffer string that was input
+*
+* Return: processed buffer string
+*/
 char *subsvars(char **buf)
 {
 	char *varptr = *buf, *ptr, *name, *val, *valptr, *dest, *dolptr;
@@ -102,7 +106,8 @@ char *subsvars(char **buf)
 			}
 			varptr++;
 			if (*varptr == '$' &&
-			    (varptr[1] == ' ' || varptr[1] == 0 || varptr[1] == '\n'))
+			    (varptr[1] == ' ' || varptr[1] == 0 ||
+			     varptr[1] == '\n'))
 				varptr++;
 		}
 #ifdef DEBUGSVARS
@@ -143,18 +148,19 @@ char *subsvars(char **buf)
 #endif
 		varvlen = _strlen(val);
 /*
- *need new buffer for substituted var string
- */
+*need new buffer for substituted var string
+*/
 		buflen = buflen - varnlen + varvlen + 1;
 #ifdef DEBUGSVARS
 		printf("malloc size:%d\n", buflen);
 #endif
 		name = malloc(sizeof(char) * (buflen));
-		for (ptr = *buf, dest = name, valptr = val; *ptr != 0; ptr++, dest++)
+		for (ptr = *buf, dest = name, valptr = val; *ptr != 0; ptr++,
+				dest++)
 		{
 /*
- * printf("copy to new buf %s::%s\n", ptr, name);
- */
+* printf("copy to new buf %s::%s\n", ptr, name);
+*/
 			if (val != NULL && ptr == dolptr)
 			{
 				while (*valptr != 0)
@@ -179,12 +185,11 @@ char *subsvars(char **buf)
 }
 
 /**
- * cleanarg - cleans escapes and functional quotes
- *
- * @arg: - argument to clean
- *
- * Return: cleaned argument
- */
+* cleanarg - function that cleans escapes and functional quotes
+* @arg: - argument to clean
+*
+* Return: cleaned argument
+*/
 char *cleanarg(char *arg)
 {
 	char *newbuf, *ptr, *ptr2;
@@ -207,7 +212,8 @@ char *cleanarg(char *arg)
 		if (*ptr == '\\' && inquote == 2)
 		{
 			ptr++;
-			if (*ptr == '$' || *ptr == '#' || *ptr == ';' || *ptr == '\\')
+			if (*ptr == '$' || *ptr == '#' || *ptr == ';' ||
+					*ptr == '\\')
 			{
 				len++;
 				ptr++;
@@ -228,7 +234,8 @@ char *cleanarg(char *arg)
 			ptr++;
 			continue;
 		}
-		if ((inquote == 1 && *ptr == '\'') || (inquote == 2 && *ptr == '"'))
+		if ((inquote == 1 && *ptr == '\'') || (inquote == 2 &&
+					*ptr == '"'))
 		{
 			inquote = 0;
 			ptr++;
@@ -257,7 +264,8 @@ char *cleanarg(char *arg)
 		if (*ptr == '\\' && inquote == 2)
 		{
 			ptr++;
-			if (*ptr == '$' || *ptr == '#' || *ptr == ';' || *ptr == '\\')
+			if (*ptr == '$' || *ptr == '#' || *ptr == ';' ||
+					*ptr == '\\')
 				*ptr2++ = *ptr++;
 			else
 				*ptr2++ = '\\';
@@ -275,7 +283,8 @@ char *cleanarg(char *arg)
 			ptr++;
 			continue;
 		}
-		if ((inquote == 1 && *ptr == '\'') || (inquote == 2 && *ptr == '"'))
+		if ((inquote == 1 && *ptr == '\'') || (inquote == 2 &&
+					*ptr == '"'))
 		{
 			inquote = 0;
 			ptr++;
@@ -293,12 +302,11 @@ char *cleanarg(char *arg)
 }
 
 /**
- * tildeexpand - handle expanding ~ where appropriate
- *
- * @buf: buffer to process
- *
- * Return: processed buffer
- */
+* tildeexpand - function that handles expanding ~ where appropriate
+* @buf: buffer to process
+*
+* Return: processed buffer
+*/
 char *tildeexpand(char *buf)
 {
 	char *tildeptr = buf, *endptr, *homepath, *newbuf, *bufptr, *newptr;
@@ -328,7 +336,8 @@ char *tildeexpand(char *buf)
 					if (*tildeptr == '\\')
 					{
 						tildeptr++;
-						inquotes = *tildeptr != 0 && tildeptr++;
+						inquotes = *tildeptr != 0 &&
+							tildeptr++;
 						inquotes = 2;
 						continue;
 					}
@@ -381,10 +390,11 @@ char *tildeexpand(char *buf)
 	return (newbuf);
 }
 /**
- * parseargs - parse arguments function, frees buf at end
- * @buf: buffer pointer
- * Return: return value of command
- */
+* parseargs - parse arguments function, frees buf at end
+* @buf: buffer pointer
+*
+* Return: return value of command
+*/
 int parseargs(char **buf)
 {
 	char *av[1024], *ptr, *left, *right;

@@ -1,22 +1,26 @@
-#include "shell.h"
+#include "toem.h"
 #include "alias.h"
+
 /**
- * getalist - static wrapper getalias list
- * Return: address alist
- *
- */
+* getalist - static wrapper getalias list
+*
+* Return: address alist
+*
+*/
 AliasData **getalist()
 {
 	static AliasData *alist;
 
 	return (&alist);
 }
+
 /**
- * getalias - get alias value
- * returns original argument if not found
- * @name: name of alias
- * Return: original argument if not found, otherwise value
- */
+* getalias - function that gets alias value,
+* returns original argument if not found
+* @name: name of alias
+*
+* Return: original argument if not found, otherwise value
+*/
 char *getalias(char *name)
 {
 	AliasData *alist = *(getalist());
@@ -43,12 +47,14 @@ char *getalias(char *name)
 	free(name);
 	return (getalias(_strdup(ptr->val)));
 }
+
 /**
- * setalias - set alias and value
- * @name: name of alias
- * @val: value to set alias to
- * Return: 0 upon success
- */
+* setalias - function that sets alias and value
+* @name: name of alias
+* @val: value to set alias to
+*
+* Return: 0 upon success
+*/
 int setalias(char *name, char *val)
 {
 	AliasData **alistroot = getalist();
@@ -86,11 +92,13 @@ int setalias(char *name, char *val)
 	}
 	return (0);
 }
+
 /**
- * unsetalias - unset alias of @name
- * @name: name of alias value to unset
- * Return: 0 if sucess
- */
+* unsetalias - function that unsets alias of @name
+* @name: name of alias value to unset
+*
+* Return: 0 on success
+*/
 int unsetalias(char *name)
 {
 	AliasData *alist = *(getalist());
@@ -117,16 +125,18 @@ int unsetalias(char *name)
 	}
 	return (0);
 }
+
 /**
- * aliascmd - tokenizes arguments for alias command
- * @av: arguments
- * Return: 1
- */
+* aliascmd - function that tokenizes arguments for alias command
+* @av: arguments
+*
+* Return: 1
+*/
 int aliascmd(char *av[])
 {
 	AliasData *alist = *(getalist());
 	AliasData *ptr = alist;
-	int i;
+	int n;
 	char *name, *val;
 
 #ifdef DEBUGMODE
@@ -145,12 +155,12 @@ int aliascmd(char *av[])
 #ifdef DEBUGMODE
 	printf("Not blank args\n");
 #endif
-	for (i = 1; av[i] != NULL; i++)
+	for (n = 1; av[n] != NULL; n++)
 	{
 #ifdef DEBUGMODE
-		printf("Alias arg %s\n", av[i]);
+		printf("Alias arg %s\n", av[n]);
 #endif
-		name = strtok(av[i], "=");
+		name = strtok(av[n], "=");
 		val = strtok(NULL, "=");
 		if (val != NULL)
 		{
@@ -180,7 +190,8 @@ int aliascmd(char *av[])
 #endif
 			if (!_strcmp(val, name))
 			{
-				fprintstrs(1, "alias: ", name, " not found\n", NULL);
+				fprintstrs(1, "alias: ", name, " not found\n",
+						NULL);
 				free(val);
 			}
 			else

@@ -1,12 +1,12 @@
-#include "shell.h"
+#include "toem.h"
 #include <stdarg.h>
+
 /**
- * linecount - count lines
- *
- * @increment: icnrementer
- *
- * Return: count
- */
+* linecount - function that counts lines
+* @increment: icnrementer
+*
+* Return: count
+*/
 int linecount(int increment)
 {
 	static int count;
@@ -15,13 +15,13 @@ int linecount(int increment)
 
 	return (count);
 }
+
 /**
- * itos - converts integer to string
- *
- * @digits: int
- *
- * Return: a string
- */
+* itos - function that converts integer to string
+* @digits: int
+*
+* Return: a string
+*/
 char *itos(int digits)
 {
 	int count, i, neg, absMod, digitTest;
@@ -61,14 +61,15 @@ char *itos(int digits)
 	}
 	output[count] = '\0';
 	return (output);
-
 }
+
 /**
- * printerr - printerrors
- * @str: string
- * null prints errno error with perror, otherwise print string as error
- * Return: 0
- */
+* printerr - function that prints errors
+* @str: string
+* null prints errno error with perror, otherwise print string as error
+*
+* Return: 0
+*/
 
 int printerr(char *str)
 {
@@ -91,12 +92,12 @@ int printerr(char *str)
 }
 
 /**
- * fprintstrs - simple string printer, va args should have a NULL last arg
- * @fd: file descriptor
- * @str: string
- * Return: 0
- */
-
+* fprintstrs - simple string printer, va args should have a NULL last arg
+* @fd: file descriptor
+* @str: string
+*
+* Return: 0
+*/
 int fprintstrs(int fd, char *str, ...)
 {
 	va_list list;
@@ -115,32 +116,32 @@ int fprintstrs(int fd, char *str, ...)
 }
 
 /**
- * _strchr - locates a character in a string
- * @s: char pointer
- * @c: char
- * _strchr: locates character in a string and returns a pointer
- * to the first occurence of c in the string s
- * Return: address of first occurence of c in s
- */
-
+* _strchr - function locates a character in a string
+* @s: char pointer
+* @c: char
+* _strchr: locates character in a string and returns a pointer
+* to the first occurence of c in the string s
+*
+* Return: address of first occurence of c in s
+*/
 char *_strchr(char *s, char c)
 {
-	int i;
-	int len;
+	int n;
+	int length;
 
-	i = 0;
-	while (s[i] != '\0')
+	n = 0;
+	while (s[n] != '\0')
 	{
-		len++;
-		i++;
+		length++;
+		n++;
 	}
 
-	i = 0;
-	while (i <= len)
+	n = 0;
+	while (n <= length)
 	{
-		if (s[i] == c)
-			return (s + i);
-		i++;
+		if (s[n] == c)
+			return (s + n);
+		n++;
 	}
 	return (0);
 }

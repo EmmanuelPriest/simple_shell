@@ -1,16 +1,15 @@
-#include "shell.h"
+#include "toem.h"
 /**
- * inputvalidator - validates input buffer
- * complete is bit flag type to complete.
- * 0 none, 1 single quote, 2 double quote, 4 logic,
- * fd is fd we used to get input the first time
- * @buf: buffer
- *
- * @fd: file descriptor
- *
- * Return: return value of command, 2 for syntax errors,
- * or negative numbers for syscall errors
- */
+* inputvalidator - function that validates input buffer
+* complete is bit flag type to complete.
+* 0 none, 1 single quote, 2 double quote, 4 logic,
+* fd is fd we used to get input the first time
+* @buf: buffer
+* @fd: file descriptor
+*
+* Return: return value of command, 2 for syntax errors,
+* or negative numbers for syscall errors
+*/
 int inputvalidator(char **buf, int fd)
 {
 	char *newbuf, *bufgl, *bufptr = *buf;
@@ -25,7 +24,8 @@ int inputvalidator(char **buf, int fd)
 	while (*bufptr)
 	{
 #ifdef DEBUGVALID
-		printf("In valid loop complete:%d:bufptr:%s", complete, bufptr);
+		printf("In valid loop complete:%d:bufptr:%s", complete,
+				bufptr);
 #endif
 		while ((*bufptr == ' ' || *bufptr == '\n') && !(complete & 3))
 			bufptr++;
@@ -181,7 +181,8 @@ int inputvalidator(char **buf, int fd)
 		{
 			free(buf);
 			free(bufgl);
-			printerr(": Syntax error: unterminated quoted string\n");
+			printerr(": Syntax error: unterminated quoted
+					string\n");
 			return (-1);
 		}
 		if (lenr == -1)
@@ -210,9 +211,10 @@ int inputvalidator(char **buf, int fd)
 }
 
 /**
- * shintmode - shell interactive mode
- * Return: 0
- */
+* shintmode - function that sets the shell in interactive mode
+*
+* Return: 0
+*/
 int shintmode(void)
 {
 	char *bufgl = NULL, *pwd;
@@ -229,7 +231,8 @@ int shintmode(void)
 			pwd = _getenv("PWD");
 			if (pwd != NULL)
 			{
-				fprintstrs(1, "Homemade shell:", pwd, "$ ", NULL);
+				fprintstrs(1, "Homemade shell:", pwd, "$ ",
+						NULL);
 				free(pwd);
 			}
 			else
@@ -255,11 +258,13 @@ int shintmode(void)
 	}
 	return (ret);
 }
+
 /**
- * scriptmode - shell script mode
- * @av: arguments
- * Return: 0 upon success or -1 if failure
- */
+* scriptmode - function that sets the shell in script mode
+* @av: arguments
+*
+* Return: 0 upon success or -1 if failure
+*/
 int scriptmode(char *av[])
 {
 	char *bufgl = NULL;
@@ -296,14 +301,13 @@ int scriptmode(char *av[])
 }
 
 /**
- * main - runs a shell
- *
- * @ac: number of args
- * @av: command line arg matrix
- * @environ: environment matrix
- *
- * Return: return value of last command
- */
+* main - function that runs the shell
+* @ac: number of args
+* @av: command line arg matrix
+* @environ: environment matrix
+*
+* Return: return value of last command
+*/
 int main(int ac, char *av[], char **environ)
 {
 	int ret = 0;

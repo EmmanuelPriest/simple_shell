@@ -1,20 +1,21 @@
-#include "shell.h"
+#include "toem.h"
 
 /**
- * checkpath - checks the path
- * @av: arguments
- * Return: 1
- */
+* checkpath - function that checks the path
+* @av: arguments
+*
+* Return: 1
+*/
 int checkpath(char *av[])
 {
 	char *path, *pathptr, *pathvar, *ptr, *pathenv = "PATH", *linect;
-	int pathlen, cmdlen;
+	int pathLength, cmdLength;
 
 #ifdef DEBUGMODE
 	printf("In checkpath\n");
 #endif
-	for (ptr = av[0], cmdlen = 0; *ptr != 0; ptr++)
-		cmdlen++;
+	for (ptr = av[0], cmdLength = 0; *ptr != 0; ptr++)
+		cmdLength++;
 	pathvar = _getenv(pathenv);
 	if (pathvar != pathenv)
 	{
@@ -22,11 +23,14 @@ int checkpath(char *av[])
 		while (*pathvar != 0)
 		{
 #ifdef DEBUGMODE
-			printf("in loop pathvar:%s:*pathvar:%c\n", pathvar, *pathvar);
+			printf("in loop pathvar:%s:*pathvar:%c\n", pathvar,
+					*pathvar);
 #endif
-			for (pathlen = 0, ptr = pathvar; *ptr != 0 && *ptr != ':'; ptr++)
-				pathlen++;
-			path = malloc(sizeof(char) * (cmdlen + pathlen + 2));
+			for (pathLength = 0, ptr = pathvar; *ptr != 0 &&
+					*ptr != ':'; ptr++)
+				pathLength++;
+			path = malloc(sizeof(char) * (cmdLength + pathLength
+						+ 2));
 			if (path == NULL)
 			{
 				free(pathenv);
@@ -46,10 +50,10 @@ int checkpath(char *av[])
 #ifdef DEBUGMODE
 				printf("Found path:%s\n", path);
 #endif
-				pathlen = cmdcall(av, path);
+				pathLength = cmdcall(av, path);
 				free(path);
 				free(pathenv);
-				return (pathlen);
+				return (pathLength);
 			}
 			free(path);
 			if (*pathvar == ':')
@@ -66,15 +70,16 @@ int checkpath(char *av[])
 	return (127);
 }
 /**
- * cmdcall - calls commands
- * @av: arguments
- * @cmd: command
- * Return: retval
- */
+* cmdcall - function that calls commands
+* @av: arguments
+* @cmd: command
+*
+* Return: retval
+*/
 int cmdcall(char *av[], char *cmd)
 {
 	pid_t command;
-	int status;
+	int stat;
 	char *linect, *dolz;
 
 #ifdef DEBUGMODE
@@ -107,7 +112,8 @@ int cmdcall(char *av[], char *cmd)
 			{
 				linect = itos(linecount(0));
 				dolz = getsvar("0");
-				fprintstrs(2, dolz, ": ", linect, ": ", cmd, ": not found\n", NULL);
+				fprintstrs(2, dolz, ": ", linect, ": ",
+						cmd, ": not found\n", NULL);
 				free(dolz);
 				free(linect);
 				exit(127);
@@ -120,22 +126,23 @@ int cmdcall(char *av[], char *cmd)
 	}
 	else
 	{
-		wait(&status);
+		wait(&stat);
 	}
 #ifdef DEBUGMODE
-	printf("Status %d\n", status);
+	printf("Status %d\n", stat);
 #endif
 	free(environ);
-	return (status);
+	return (stat);
 }
 /**
- * builtincall - calls builtin commands
- * @av: arguments
- * Return: retval
- */
+* builtincall - function that calls builtin commands
+* @av: arguments
+*
+* Return: ret
+*/
 int builtincall(char *av[])
 {
-	int retval = 0;
+	int ret = 0;
 	char *retstr;
 
 	if (av[0] == NULL)
@@ -149,66 +156,66 @@ int builtincall(char *av[])
 		if (av[1] != NULL)
 			if (av[1][0] >= '0' && av[1][0] <= '9')
 			{
-				retval = _atoi(av[1]);
+				ret = _atoi(av[1]);
 				exitcleanup(av);
 				exit_hist();
-				exit(retval);
+				exit(ret);
 			}
 			else
 			{
 				printerr(": exit: Illegal number: ");
 				fprintstrs(STDERR_FILENO, av[1], "\n", NULL);
-				retval = 2;
+				ret = 2;
 			}
 		else
 		{
 			retstr = getsvar("?");
-			retval = _atoi(retstr);
+			ret = _atoi(retstr);
 			free(retstr);
 			exitcleanup(av);
 			exit_hist();
-			exit(retval);
+			exit(ret);
 		}
 	}
 	else if (!_strcmp(av[0], "cd"))
-		retval = _cd(av);
+		ret = _cd(av);
 /*
  *
  * else if (!_strcmp(av[0], "getenv"))
- *	retval = !printf("%s\n", _getenv(av[1]));
+ *	ret = !printf("%s\n", _getenv(av[1]));
 */
 	else if (!_strcmp(av[0], "history"))
-		retval = print_hist();
+		ret = print_hist();
 	else if (!_strcmp(av[0], "help"))
-		retval = help(av[1]);
+		ret = help(av[1]);
 	else if (!_strcmp(av[0], "env"))
-		retval = _printenv();
+		ret = _printenv();
 	else if (!_strcmp(av[0], "setenv"))
-		retval = _setenv(av[1], av[2]);
+		ret = _setenv(av[1], av[2]);
 	else if (!_strcmp(av[0], "unsetenv"))
-		retval = _unsetenv(av[1]);
+		ret = _unsetenv(av[1]);
 	else if (!_strcmp(av[0], "alias"))
-		retval = aliascmd(av);
+		ret = aliascmd(av);
 	else if (!_strcmp(av[0], "unset"))
-		retval = unsetsvar(av[1]);
+		ret = unsetsvar(av[1]);
 	else if (!_strcmp(av[0], "unalias"))
-		retval = unsetalias(av[1]);
+		ret = unsetalias(av[1]);
 	else if (av[0][0] != '/' &&
 		 !(av[0][0] == '.' && (av[0][1] == '/' ||
 				       (av[0][1] == '.' && av[0][2] == '/'))))
-		retval = checkpath(av);
+		ret = checkpath(av);
 	else
-		retval = cmdcall(av, av[0]);
+		ret = cmdcall(av, av[0]);
 #ifdef DEBUGMODE
-	printf("After call back in builtin retval:%d\n", retval);
+	printf("After call back in builtin retval:%d\n", ret);
 #endif
-	if (retval % 256 == 0)
-		retval /= 256;
-	retstr = itos(retval % 128);
+	if (ret % 256 == 0)
+		ret /= 256;
+	retstr = itos(ret % 128);
 #ifdef DEBUGMODE
 	printf("Status string:%s\n", retstr);
 #endif
 	setsvar("?", retstr);
 	free(retstr);
-	return (retval);
+	return (ret);
 }

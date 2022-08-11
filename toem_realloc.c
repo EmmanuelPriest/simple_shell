@@ -1,11 +1,12 @@
-#include "shell.h"
+#include "toem.h"
 /**
- * _realloc - reallocates a memory block using malloc and free
- * @ptr: void pointer
- * @old_size: unsigned int
- * @new_size: unsigned int
- * Return: pointer
- */
+* _realloc - function that reallocates a memory block using malloc and free
+* @ptr: void pointer
+* @old_size: unsigned int
+* @new_size: unsigned int
+*
+* Return: pointer
+*/
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	void *ret = 0;

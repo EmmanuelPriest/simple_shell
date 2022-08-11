@@ -1,5 +1,5 @@
-#ifndef SHELLH
-#define SHELLH
+#ifndef TOEM_H
+#define TOEM_H
 
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -11,6 +11,52 @@
 #include "history.h"
 #include "shellvars.h"
 /*#include <string.h>*/
+
+
+/**
+* struct HistList - singly linked list
+* @cmd: command line entered
+* @next: pointer to the next node
+* Description: singly linked list node structure for History
+* for Holberton project
+*/
+
+typedef struct HistList
+{
+	char *cmd;
+	struct HistList *next;
+} HistList;
+
+
+/**
+ * struct ShellVar - shellvar list node
+ * @name: name of variable
+ * @val: value of variable
+ * @next: next variable in the list
+ */
+typedef struct ShellVar
+{
+	char *name;
+	char *val;
+	struct ShellVar *next;
+} ShellVar;
+
+
+/**
+* struct AliasData - struct for alias function
+* @AliasData - name of the struct
+* @name: name of the alias value
+* @val: value for the alias
+* @next: pointer to next node
+*
+*/
+
+typedef struct AliasData
+{
+	char *name;
+	char *val;
+	struct AliasData *next;
+} AliasData;
 
 /* from in.c */
 int shintmode(void);

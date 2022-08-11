@@ -1,14 +1,15 @@
-#include "shell.h"
+#include "toem.h"
 /**
- *_cd - change directory builtin
- * @av: argument to work with
- * Return: int
- */
+*_cd - change directory builtin
+* @av: argument to work with
+*
+* Return: integer
+*/
 int _cd(char *av[])
 {
 	char *oldpwd = NULL, *newpath, *pathbit, *newptr;
 	char *homestr = "HOME", *oldpwdstr = "OLDPWD";
-	int ret, printpath = 0;
+	int retVal, printpath = 0;
 
 	oldpwd = getcwd(oldpwd, 0);
 	if (oldpwd == NULL)
@@ -35,7 +36,8 @@ int _cd(char *av[])
 #ifdef DEBUGCD
 	printf("Making new path %s:%c\n", av[1], av[1][0]);
 #endif
-	newpath = malloc(sizeof(char) * (_strlen(oldpwd) + _strlen(av[1]) + 2));
+	newpath = malloc(sizeof(char) * (_strlen(oldpwd) + _strlen(av[1])
+				+ 2));
 	if (newpath == NULL)
 		return (-1);
 	newptr = newpath;
@@ -55,7 +57,8 @@ int _cd(char *av[])
 		    && pathbit[2] == 0)
 		{
 #ifdef DEBUGCD
-			printf("going back a directory%s:%s\n", newpath, newpath);
+			printf("going back a directory%s:%s\n", newpath,
+					newpath);
 #endif
 			newptr--;
 			if (newptr != newpath)
@@ -82,8 +85,8 @@ int _cd(char *av[])
 	printf("New path:%s\n", newpath);
 #endif
 	/*}*/
-	ret = chdir(newpath);
-	if (ret == 0)
+	retVal = chdir(newpath);
+	if (retVal == 0)
 	{
 		_setenv("OLDPWD", oldpwd);
 		free(oldpwd);
@@ -97,5 +100,5 @@ int _cd(char *av[])
 	fprintstrs(STDERR_FILENO, av[1], "\n", NULL);
 	free(oldpwd);
 	free(newpath);
-	return (ret);
+	return (retVal);
 }

@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "toem.h"
 #include "history.h"
 
 /**
@@ -58,29 +58,29 @@ int print_hist(void)
 {
 	HistList **hlistroot = gethistory();
 	HistList *h = *hlistroot;
-	int i;
-	int len, numlen;
+	int n;
+	int length, numLength;
 	char *s, *num;
 
-	i = 0;
+	n = 0;
 	while (h != NULL)
 	{
-		len = _strlen(h->cmd);
+		length = _strlen(h->cmd);
 		s = h->cmd;
-		num = itos(i);
-		numlen = _strlen(num);
-		write(1, num, numlen);
+		num = itos(n);
+		numLength = _strlen(num);
+		write(1, num, numLength);
 		_putchar(' ');
-		write(1, s, len);
+		write(1, s, length);
 		h = h->next;
-		i++;
+		n++;
 	}
-	return (i);
+	return (n);
 }
 
 /**
  * exit_hist - exit history and copy to file
- * Return: int
+ * Return: integer
  */
 
 int exit_hist(void)
@@ -88,7 +88,7 @@ int exit_hist(void)
 
 	int fd;
 	char *file = ".simple_shell_history";
-	int len;
+	int length;
 	char *s;
 
 	HistList **hlistroot = gethistory();
@@ -103,8 +103,8 @@ int exit_hist(void)
 	{
 		ptr = hlist->next;
 		s = hlist->cmd;
-		len = _strlen(s);
-		write(fd, s, len);
+		length = _strlen(s);
+		write(fd, s, length);
 		free(hlist->cmd);
 		free(hlist);
 		hlist = ptr;

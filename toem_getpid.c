@@ -1,10 +1,11 @@
-#include "shell.h"
+#include "toem.h"
 #include <dirent.h>
 
 /**
- * _getpid - gets the pid of a currently running process
- * Return: string of the pid
- */
+* _getpid - function that gets the pid of a current process
+*
+* Return: string of the pid
+*/
 char *_getpid()
 {
 	char *s;

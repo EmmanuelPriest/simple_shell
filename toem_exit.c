@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "toem.h"
 #include "alias.h"
 #include "shellvars.h"
 
@@ -8,24 +8,24 @@ ShellVar **getvars();
 AliasData **getalist();
 
 /**
- * exitcleanup - cleans up various vars before exiting
- * @av: argument list to free (if any)
- * Return: void
- */
-
+* exitcleanup - function that cleans up various vars before exiting
+* @av: argument list to free (if any)
+*
+* Return: nothing
+*/
 void exitcleanup(char **av)
 {
 	ShellVar *sptr = *(getspecial()), *snext;
 	AliasData *aptr = *(getalist()), *anext;
 	char **environ = *(getenviron());
-	int i = 0;
+	int n = 0;
 
 	if (av != NULL)
-		for (i = 0; av[i] != NULL; i++)
-			free(av[i]);
-	i = 0;
-	while (environ[i] != NULL)
-		free(environ[i++]);
+		for (n = 0; av[n] != NULL; n++)
+			free(av[n]);
+	n = 0;
+	while (environ[n] != NULL)
+		free(environ[n++]);
 	free(environ);
 	while (sptr != NULL)
 	{
