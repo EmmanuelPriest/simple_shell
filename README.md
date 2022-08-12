@@ -269,5 +269,5 @@ $
 
 
 ###		CONTRIBUTORS
-		Emmanuel Chukwujekwu [github] (https:/github.com/EmmanuelPriest)
-		Anthony Ekim [github] (https://github.com/tonyekim)
+		Emmanuel Chukwujekwu [github](https:/github.com/EmmanuelPriest)
+		Anthony Ekim [github](https://github.com/tonyekim)
